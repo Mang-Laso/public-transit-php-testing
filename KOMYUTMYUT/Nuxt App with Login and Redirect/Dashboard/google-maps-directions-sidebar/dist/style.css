@@ -1,0 +1,152 @@
+.demo--container {
+  position: fixed;
+  width: 410px;
+}
+
+.directions {
+  box-shadow: 2px 0 10px 0 #000000;
+  height: 100vh;
+}
+.directions .link-styles-dark, .directions .directions__options a, .directions__options .directions a, .directions .directions__basics--address a, .directions__basics--address .directions a, .directions .directions__basics--header a, .directions__basics--header .directions a {
+  color: rgb(0, 0, 0);
+}
+.directions .link-styles-dark:hover, .directions .directions__options a:hover, .directions__options .directions a:hover, .directions .directions__basics--address a:hover, .directions__basics--address .directions a:hover, .directions .directions__basics--header a:hover, .directions__basics--header .directions a:hover {
+  opacity: 0.6;
+  text-decoration: none;
+}
+.directions .link-styles-light, .directions .directions__routes a, .directions__routes .directions a {
+  color: #0049d1;
+}
+.directions .link-styles-light:hover, .directions .directions__routes a:hover, .directions__routes .directions a:hover {
+  opacity: 0.6;
+  text-decoration: none;
+}
+.directions__basics {
+  background: #0bd6b4;
+  padding: 15px;
+}
+.directions__basics--header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+.directions__basics--header .directions--menu {
+  width: 10%;
+}
+.directions__basics--header .transportation--type {
+  width: 80%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  padding: 0 15px;
+}
+.directions__basics--header .transportation--type a {
+  opacity: 0.6;
+}
+.directions__basics--header .transportation--type a:hover {
+  opacity: 1;
+}
+.directions__basics--header .directions--close {
+  width: 10%;
+  text-align: right;
+}
+.directions__basics--address {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0 0 0;
+  margin-bottom: 15px;
+}
+.directions__basics--address .inputs {
+  padding: 0 30px;
+}
+.directions__basics--address .inputs input {
+  background: none;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  border-bottom: 1px solid rgb(0, 0, 0);
+  color: rgb(0, 0, 0);
+}
+.directions__basics--address .inputs input::-webkit-input-placeholder {
+  color: rgb(0, 0, 0);
+  opacity: 0.6;
+}
+.directions__basics--address .toggle {
+  font-size: 28px;
+}
+.directions__options {
+  background: #0bd6b4;
+  padding: 15px;
+}
+.directions__options {
+  display: flex;
+  flex-flow: row nowrap;
+  font-size: 12px;
+}
+.directions__options .add {
+  width: 10%;
+}
+.directions__options .leave {
+  width: 60%;
+}
+.directions__options .options {
+  width: 30%;
+  text-transform: uppercase;
+  text-align: right;
+  font-size: 10px;
+}
+.directions__routes {
+  background: rgb(255, 255, 255);
+}
+.directions__routes .route {
+  display: flex;
+  flex-flow: row nowrap;
+  border-bottom: 1px solid #c8c8c8;
+  padding: 15px;
+}
+.directions__routes .route:hover {
+  cursor: pointer;
+  background: #f1f1f1;
+}
+.directions__routes .route__type {
+  width: 10%;
+  opacity: 0.6;
+}
+.directions__routes .route__details {
+  width: 70%;
+  padding: 0 15px;
+}
+.directions__routes .route__details .via {
+  font-weight: 700;
+}
+.directions__routes .route__details .usual--time {
+  opacity: 0.5;
+}
+.directions__routes .route__details .details {
+  text-transform: uppercase;
+  line-height: 4em;
+  font-size: 12px;
+  font-weight: 700;
+}
+.directions__routes .route__time {
+  width: 20%;
+  text-align: right;
+}
+.directions__routes .route__time .time {
+  color: #f7941d;
+  font-weight: 500;
+}
+.directions__routes .route__time .distance {
+  opacity: 0.6;
+}
+.btn {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  text-decoration: none;
+  border-bottom: none;
+  background-color: rgba(0, 0, 0, 0.555), 255;
+}
