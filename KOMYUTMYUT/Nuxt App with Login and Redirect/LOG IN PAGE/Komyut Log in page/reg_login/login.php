@@ -1,5 +1,24 @@
 <?php
-session_start();
+
+if($_SERVER["REQUEST_METHOD"] === "POST")
+{
+
+    $mysqli = require __DIR__ . "/database.php";
+
+    $sql = sprintf("SELECT * FROM user
+                    WHERE username = '%s'",
+                   $mysqli->real_escape_string($_POST["username"]));
+
+    $result = $mysqli->query($sql);
+
+    $users = $result->fetch_assoc();
+
+    var_dump($users);
+    exit
+
+}
+
+/*session_start();
 
     include("connection.php");
     include("functions.php");
@@ -51,5 +70,4 @@ session_start();
         echo "Please enter valid information!";
 
     }
-
-?>
+*/

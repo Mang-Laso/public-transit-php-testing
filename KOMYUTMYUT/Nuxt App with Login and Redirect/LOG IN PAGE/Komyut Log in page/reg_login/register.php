@@ -1,5 +1,101 @@
 <?php 
-session_start();
+
+if(empty($_POST["username"]))
+{
+
+	die("Username is required!");
+
+}
+
+if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL))
+{
+
+	die("Valid email is required!");
+
+}
+
+if(strlen($_POST["password"] <= 8 ))
+{
+
+	die("Password must be at least eight (8) characters long!");
+
+}
+
+if(!preg_match("/[a-z]/i", $_POST["password"]))
+{
+
+	die("Password must contain at least one (1) letter and at least eight (8) characters long!");
+
+}
+
+if(!preg_match("/[0-9]/i", $_POST["password"]))
+{
+
+	die("Password must contain at least one (1) number and at least eight (8) characters long!");
+
+}
+
+if($_POST["password"] !== $_POST["password_confirmation"])
+{
+
+	die("Password does not match! Please re-enter your password.");
+
+}
+
+$password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
+
+$mysqli = require __DIR__ . "/database.php";
+
+$sql = "INSERT INTO users (username, email, password_hash)
+		VALUES (?, ?, ?)";
+
+$stmt = $mysqli->stmt_init();
+
+if(!$stmt->prepare($sql))
+{
+
+	die("SQL error: " . $mysqli->error);
+
+}
+
+$stmt->bind_param("sss",
+				  $_POST["username"],
+				  $_POST["email"],
+				  $password_hash);
+
+$stmt = $mysqli->stmt_init();
+
+if ( ! $stmt->prepare($sql)) {
+  die("SQL error: " . $mysqli->error);
+}
+				  
+$stmt->bind_param("sss",
+    			  $_POST["username"],
+				  $_POST["email"],
+				  $password_hash);
+									
+if ($stmt->execute()) {
+			
+header("Location: login_register.html");
+exit;
+					  
+} else 
+{
+					  
+	if ($mysqli->errno === 1062)
+	{
+	
+		die("Email already taken. Please use a different email.");
+	
+	} else
+	{
+	
+		die($mysqli->error . " " . $mysqli->errno);
+	
+	}
+}
+				  
+/* session_start();
 
 	include("connection.php");
 	include("functions.php");
@@ -8,15 +104,15 @@ session_start();
 	if($_SERVER['REQUEST_METHOD'] == "POST")
 	{
 		//something was posted
-		$user_name = $_POST['user_name'];
+		$username = $_POST['username'];
 		$password = $_POST['password'];
 
-		if(!empty($user_name) && !empty($password) && !is_numeric($user_name))
+		if(!empty($username) && !empty($password) && !is_numeric($username))
 		{
 
 			//save to database
 			$user_id = random_num(20);
-			$query = "insert into users (user_id,user_name,password) values ('$user_id','$user_name','$password')";
+			$query = "insert into users (user_id,username,password) values ('$user_id','$username','$password')";
 
 			mysqli_query($con, $query);
 
@@ -25,6 +121,11 @@ session_start();
 		}else
 		{
 			echo "Please enter some valid information!";
-		}
-	}
+		} 
+	}*/
+
+//Testing
+//print_r($_POST);
+//var_dump($password_hash);
+
 ?>
