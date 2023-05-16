@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <iframe src="PICS/index.html" frameborder="0" scrolling="no" style="position: fixed; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: 100%; z-index: -1;"></iframe>
+    <!--script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js" defer></script>
+    <script src="validation.js" defer></script-->
     <title>Login Page</title>
 <!-- ============== CSS links  ================= -->
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -31,7 +33,7 @@
     
 <!-- =============== Registration Form ===============-->
 <div class="form-container register-container">
-  <form action="register.php" method="POST" novalidate>
+  <form action="register.php" method="POST" id="signup" novalidate>
     <h1>Welcome aboard Komyut!</h1>
     <input type="username" placeholder="Username" name="username">
     <input type="email" placeholder="Email" name="email">
@@ -58,7 +60,6 @@
           </div>
         </div>
         <button>Log In</button>
-
       </form>
     </div>
 

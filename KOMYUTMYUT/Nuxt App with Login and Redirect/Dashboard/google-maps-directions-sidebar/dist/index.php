@@ -1,8 +1,13 @@
-<?php
+<?
+
 session_start();
 
-    include("connection.php");
-    include("functions.php");
+if(!isset($_SESSION["user_id"]))
+{
+
+  header("../../../LOG IN PAGE/Komyut Log in page/reg_login/login_register.html");  
+
+}
 
 ?>
 
@@ -201,8 +206,10 @@ session_start();
         </div>
         
       </div>
-      <a class="btn" href="\Nuxt App with Login and Redirect\LANDING PAGE FINAL!\dist\index.php" title="Dashboard">Logout</a>
-      <!-- / -->
+      <?php
+      (isset($_SESSION["user_id"])) ?>
+      <p><a class="btn" href="logout.php" title="Dashboard">Logout</a></p>
+      <?php ?>
     </div>
   </div>
 </div>
