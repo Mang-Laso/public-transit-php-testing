@@ -1,3 +1,5 @@
+
+
 if(navigator.geolocation){
     console.log('Your browser supports Geolocation API!');
     navigator.geolocation.getCurrentPosition(success);
@@ -8,53 +10,187 @@ if(navigator.geolocation){
 }
 
 function success(position){
-    console.log (position)
-    const lat = position.coords.latitude;
-    const lng = position.coords.longitude;
-    //sconsole.log(lat, lng);
+  console.log (position)
+  const lat = position.coords.latitude;
+  const lng = position.coords.longitude;
+  //console.log(lat, lng);
 
-    //Map bounds
-    var southWest = L.latLng(5.996826, 118.400825),
-    northEast = L.latLng(20.497456, 126.073096),
-    bounds = L.latLngBounds(southWest, northEast);
+  //Map bounds
+  var southWest = L.latLng(5.996826, 118.400825),
+  northEast = L.latLng(20.497456, 126.073096),
+  bounds = L.latLngBounds(southWest, northEast);
 
-    //Map options
-    let mapOptions = {
-        center: [lat, lng],
-        zoom: 12,
-        minZoom: 6,
-        maxZoom: 18,
-        //maxBoundsViscosity: 1.0,
-    }
+  //Map options
+  let mapOptions = {
+      center: [lat, lng],
+      zoom: 12,
+      minZoom: 6,
+      maxZoom: 18,
+  }
 
-    const myAPIKey = "72ba55a8fd634344b11cb5424941a28b";
-    const apiKey = "72ba55a8fd634344b11cb5424941a28b";
+  const myAPIKey = "72ba55a8fd634344b11cb5424941a28b";
+  const apiKey = "72ba55a8fd634344b11cb5424941a28b";
 
-    //Create a map
-    var map = L.map('map', mapOptions)
-                .setMaxBounds(bounds);
+  //Create a map
+  var map = L.map('map', mapOptions)
+              .setMaxBounds(bounds);
 
-      const isRetina = L.Browser.retina;
+    const isRetina = L.Browser.retina;
 
-      const baseUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}.png?apiKey={apiKey}";
-      const retinaUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}@2x.png?apiKey={apiKey}";
+    const baseUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}.png?apiKey={apiKey}";
+    const retinaUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}@2x.png?apiKey={apiKey}";
 
 
-    //Tile layer
-    let layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+  //Tile layer
+  let layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
 
-    //Add layer
-    layer.addTo(map);
+  //Add layer
+  layer.addTo(map);
 
-    geocodeRouting();
+
+
+  let iLat,
+iLong,
+fLat,
+fLong;
+
+//function initialPos(){
+function geocodeRouting(){
+
+  var geocodingInitialURL = `https://api.geoapify.com/v1/geocode/search?text=monumento%2C%20caloocan%20city&limit=1&filter=countrycode:ph&bias=countrycode:ph&format=json&apiKey=72ba55a8fd634344b11cb5424941a28b`;
+
+  fetch(geocodingInitialURL)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(data) {
+      iLat = data.results[0].lat;
+      iLong = data.results[0].lon;
+
+      iLat = iLat;
+      iLong = iLong;
+
+      initialWaypoint = [];
+      initialWaypoint[0]= iLat;
+      initialWaypoint[1]= iLong;
+      
+      fromWaypoint = initialWaypoint.join(',');
+
+      //fromWaypointMarker = L.marker(fromWaypoint).addTo(map).bindPopup("fromWaypoint");
+
+      //Check if working
+      //console.log(iLat);
+      //console.log(iLong);
+
+      console.log('From: ' + fromWaypoint);
+
+      var geocodingFinalURL = `https://api.geoapify.com/v1/geocode/search?text=P.%20Casal%20Street%2C%20Manila%2C%201001%20National%20Capital%20District%2C%20Philippines&limit=1&filter=countrycode:ph&bias=countrycode:ph&format=json&apiKey=72ba55a8fd634344b11cb5424941a28b`;
+  
+      fetch(geocodingFinalURL)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          fLat = data.results[0].lat;
+          fLong = data.results[0].lon;
+
+          fLat = fLat;
+          fLong = fLong;
+
+          finalWaypoint = [];
+          finalWaypoint[0]= fLat;
+          finalWaypoint[1]= fLong;
+          
+          toWaypoint = finalWaypoint.join(',');
+
+          //toWaypointMarker = L.marker(toWaypoint).addTo(map).bindPopup("toWaypoint");
+
+          //Check if working
+          //console.log(fLat);
+          //console.log(fLong);
+
+          console.log('To: ' + toWaypoint);
+          
+            var routingURL = `https://api.geoapify.com/v1/routing?waypoints=${fromWaypoint}|${toWaypoint}&mode=transit&apiKey=72ba55a8fd634344b11cb5424941a28b`;
+
+           // var 
+
+            //var 
+            
+            //API routing testing
+            //const routingURL = `https://api.geoapify.com/v1/routing?waypoints=14.658642,120.985043|14.5983169,120.9898132&mode=transit&details=instruction_details&apiKey=72ba55a8fd634344b11cb5424941a28b`;
+            
+            fetch(routingURL).then(res => res.json()).then(result => {
+
+              // Note! GeoJSON uses [longitude, latutude] format for coordinates
+              L.geoJSON(result, {
+                style: (feature) => {
+                  return {
+                    color: "rgba(20, 137, 255, 0.7)",
+                    weight: 5
+                  };
+                }
+              }).bindPopup((layer) => {
+                return `${layer.feature.properties.distance} ${layer.feature.properties.distance_units}, ${layer.feature.properties.time}`
+              }).addTo(map);
+            
+              // collect all transition positions
+              const turnByTurns = [];
+              result.features.forEach(feature => feature.properties.legs.forEach((leg, legIndex) => leg.steps.forEach(step => {
+                const pointFeature = {
+                  "type": "Feature",
+                  "geometry": {
+                    "type": "Point",
+                    "coordinates": feature.geometry.coordinates[legIndex][step.from_index]
+                  },
+                  "properties": {
+                    "instruction": step.instruction.text
+                  }
+                }
+                turnByTurns.push(pointFeature);
+              })));
+            
+              L.geoJSON({
+                type: "FeatureCollection",
+                features: turnByTurns
+              }, {
+                pointToLayer: function(feature, latlng) {
+                  return L.circleMarker(latlng, turnByTurnMarkerStyle);
+                }
+              }).bindPopup((layer) => {
+                return `${layer.feature.properties.instruction}`
+              }).addTo(map);
+            
+            }, error => console.log(err));
+            
+
+
+        })
+
+        .catch(function(error) {
+          console.log('Error:', error);
+        });
+
+    })
+    .catch(function(error) {
+      console.log('Error:', error);
+    });
+}
+
+
+
+  geocodeRouting();
+
 }
 
 function error(error){
-    alert('We could not get your current location. Please allow us to success your current location.')
-    console.log(error.code);
+  alert('We could not get your current location. Please allow us to success your current location.')
+  console.log(error.code);
 }
+
+
 
 // //Routing API
 // const myAPIKey = "72ba55a8fd634344b11cb5424941a28b";
@@ -173,87 +309,7 @@ fetch(`https://api.geoapify.com/v1/routing?waypoints=${fromWaypoint.join(',')}|$
 //}, 15000);
 
 
-let iLat,
-iLong,
-fLat,
-fLong;
 
-//function initialPos(){
-function geocodeRouting(){
-
-  const geocodingInitialURL = `https://api.geoapify.com/v1/geocode/search?text=monumento%2C%20caloocan%20city&limit=1&filter=countrycode:ph&bias=countrycode:ph&format=json&apiKey=72ba55a8fd634344b11cb5424941a28b`;
-
-  fetch(geocodingInitialURL)
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(data) {
-      iLat = data.results[0].lat;
-      iLong = data.results[0].lon;
-
-      iLat = iLat;
-      iLong = iLong;
-
-      initialWaypoint = [];
-      initialWaypoint[0]= iLat;
-      initialWaypoint[1]= iLong;
-      
-      fromWaypoint = initialWaypoint.join(',');
-      
-      var fromWaypointMarker = L.marker(fromWaypoint,{
-        title: "Starting Point"
-      }).addTo(map);
-
-      //Check if working
-      //console.log(iLat);
-      //console.log(iLong);
-
-      console.log('From: ' + fromWaypoint);
-
-      const geocodingFinalURL = `https://api.geoapify.com/v1/geocode/search?text=P.%20Casal%20Street%2C%20Manila%2C%201001%20National%20Capital%20District%2C%20Philippines&limit=1&filter=countrycode:ph&bias=countrycode:ph&format=json&apiKey=72ba55a8fd634344b11cb5424941a28b`;
-  
-      fetch(geocodingFinalURL)
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(data) {
-          fLat = data.results[0].lat;
-          fLong = data.results[0].lon;
-
-          fLat = fLat;
-          fLong = fLong;
-
-          finalWaypoint = [];
-          finalWaypoint[0]= fLat;
-          finalWaypoint[1]= fLong;
-          
-          toWaypoint = finalWaypoint.join(',');
-
-          //Check if working
-          //console.log(fLat);
-          //console.log(fLong);
-
-          console.log('To: ' + toWaypoint);
-          
-            const routingURL = `https://api.geoapify.com/v1/routing?waypoints=${fromWaypoint}|${toWaypoint}&mode=transit&details=instruction_details&apiKey=72ba55a8fd634344b11cb5424941a28b`;
-            
-            //API routing testing
-            //const routingURL = `https://api.geoapify.com/v1/routing?waypoints=14.658642,120.985043|14.5983169,120.9898132&mode=transit&details=instruction_details&apiKey=72ba55a8fd634344b11cb5424941a28b`;
-            
-            fetch(routingURL)
-              .then(response => response.json())
-              .then(result => console.log(result))
-              .catch(error => console.log('error', error)); 
-        })
-
-        .catch(function(error) {
-          console.log('Error:', error);
-        });
-
-    })
-    .catch(function(error) {
-      console.log('Error:', error);
-    });
 
     //.then(response => response.json())
     //Stringify JSON
@@ -278,7 +334,7 @@ function geocodeRouting(){
     //console.log(iLat);
     //console.log(iLong);
   
-}
+
 
 /* function finalPos(){
 
