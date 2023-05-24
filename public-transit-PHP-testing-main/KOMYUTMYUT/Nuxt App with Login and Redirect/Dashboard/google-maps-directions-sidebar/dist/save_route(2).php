@@ -8,9 +8,9 @@ include_once 'database.php';
 $user = $_SESSION['user_id'];
 
 // Retrieve user inputs from $_POST
-$origin = $_POST["origin_1"];
-$destination = $_POST["destination_1"];
-$feedback = $_POST["feedback_1"];
+$origin = $_POST["origin_3"];
+$destination = $_POST["destination_3"];
+$feedback = $_POST["feedback_3"];
 
 if (empty($origin) || empty($destination) || empty($feedback)) {
     // Handle the case when any input is blank

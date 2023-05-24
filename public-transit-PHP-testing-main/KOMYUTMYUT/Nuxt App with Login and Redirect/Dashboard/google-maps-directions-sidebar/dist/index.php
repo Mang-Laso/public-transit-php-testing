@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 if (!isset($_SESSION["user_id"])) {
@@ -78,7 +79,7 @@ if (!isset($_SESSION["user_id"])) {
       </div>
       <div class="directions__options">
         <div class="add">
-          <a href="#">
+          <a href="komyunity.php">
             <i class="fa fa-plus-circle"></i>
           </a>
         </div>
@@ -96,7 +97,7 @@ if (!isset($_SESSION["user_id"])) {
       <div class="directions__routes">
         
         <!-- Route One and Submit Button -->
-        <form action="save_route.php" method="POST">
+        <form method="POST">
         <div class="saved_route">
           <div class="saved_route">
             <div class="route__type">
@@ -104,21 +105,21 @@ if (!isset($_SESSION["user_id"])) {
             <!-- Starting Point -->
             <div class="past_starting">
               <div class="past_starting">
-                <input type="text" class="past_starting" name="origin" placeholder="Choose starting point" value="">
+                <input type="text" class="past_starting" name="origin_1" placeholder="Choose starting point" value="">
               </div>
             </div>
             <!-- / -->
             <!-- Destination -->
             <div class="past_destination">
               <div class="past_destination">
-                <input type="text" class="past_destination" name="destination" placeholder="Choose destination" value="">
+                <input type="text" class="past_destination" name="destination_1" placeholder="Choose destination" value="">
               </div>
             </div>
             <!-- Feedback section -->
             <div class="feedback-section" style="height: 50px">
-              <input type="text" class="feedback" name="feedback" placeholder="Enter your feedback here!">
+              <input type="text" class="feedback" name="feedback_1" placeholder="Enter your feedback here!">
               <div class="feedback-buttons">
-                <button type="submit" formaction="save_route.php" class="add-feedback" id="feedback">Add Feedback</button>
+                <button type="submit" formaction="save_route.php" class="add-feedback" id="add-feedback">Add Feedback</button>
                 <button class="delete-btn" id="delete-feedback">Delete</button>
               </div>
             <!-- Submit button -->
@@ -128,6 +129,8 @@ if (!isset($_SESSION["user_id"])) {
           </div>
           </div>
           </form>
+
+
           <!-- Route Two -->
           <!-- Route Two and Submit Button -->
           <div class="saved_route2">
@@ -137,21 +140,21 @@ if (!isset($_SESSION["user_id"])) {
               <!-- Starting Point -->
               <div class="past_starting2">
                 <div class="past_starting2">
-                  <input type="text" class="form-control" id="address-one" placeholder="Choose starting point" value="">
+                  <input type="text" class="form-control" name="origin_2" placeholder="Choose starting point" value="">
                 </div>
               </div>
               <!-- / -->
               <!-- Destination -->
               <div class="past_destination2">
                 <div class="past_destination2">
-                  <input type="text" class="form-control" id="address-two" placeholder="Choose destination" value="">
+                  <input type="text" class="form-control" name="destination_2" placeholder="Choose destination" value="">
                 </div>
               </div>
               <!-- Feedback section -->
                 <div class="feedback-section" style="height: 50px">
-                <input type="text" class="feedback2" id="feedback-input2" placeholder="Enter your feedback here!">
+                <input type="text" class="feedback2" name="feedback_2" placeholder="Enter your feedback here!">
                 <div class="feedback-buttons">
-                  <button class="add-feedback2" id="add-feedback">Add Feedback</button>
+                  <button type="submit" formaction="save_route(1).php" class="add-feedback2" id="add-feedback">Add Feedback</button>
                   <button class="delete-btn2" id="delete-feedback">Delete</button>
                 </div>
               <!-- Submit button -->
@@ -171,21 +174,21 @@ if (!isset($_SESSION["user_id"])) {
                     <!-- Starting Point -->
                     <div class="past_starting3">
                       <div class="past_starting3">
-                        <input type="text" class="form-control" id="address-one" placeholder="Choose starting point" value="">
+                        <input type="text" class="form-control" name="origin_3" placeholder="Choose starting point" value="">
                       </div>
                     </div>
                     <!-- / -->
                     <!-- Destination -->
                     <div class="past_destination3">
                       <div class="past_destination3">
-                        <input type="text" class="form-control" id="address-two" placeholder="Choose destination" value="">
+                        <input type="text" class="form-control" name="destination_3" placeholder="Choose destination" value="">
                       </div>
                     </div>
                     <!-- Feedback section -->
                     <div class="feedback-section" style="height: 50px">
-                      <input type="text" class="feedback3" id="feedback-input2" placeholder="Enter your feedback here!">
+                      <input type="text" class="feedback3" name="feedback_3" placeholder="Enter your feedback here!">
                       <div class="feedback-buttons">
-                        <button class="add-feedback3" id="add-feedback">Add Feedback</button>
+                        <button type="submit" formaction="save_route(2).php" class="add-feedback3" id="add-feedback">Add Feedback</button>
                         <button class="delete-btn3" id="delete-feedback">Delete</button>
                     <!-- Submit button -->
                     <div class="button-container3">
