@@ -119,12 +119,12 @@ if (!isset($_SESSION["user_id"])) {
             <div class="feedback-section" style="height: 50px">
               <input type="text" class="feedback" name="feedback_1" placeholder="Enter your feedback here!">
               <div class="feedback-buttons">
-                <button type="submit" formaction="save_route.php" class="add-feedback" id="add-feedback">Add Feedback</button>
+                <button type="submit" formaction="feedback.php" class="add-feedback" id="add-feedback">Add Feedback</button>
                 <button class="delete-btn" id="delete-feedback">Delete</button>
               </div>
             <!-- Submit button -->
             <div class="button-container">
-              <button type="submit" class="submit_btn">Save Route</button> 
+              <button type="submit" formaction="save_route.php" class="submit_btn">Save Route</button> 
             </div>
           </div>
           </div>
@@ -154,7 +154,7 @@ if (!isset($_SESSION["user_id"])) {
                 <div class="feedback-section" style="height: 50px">
                 <input type="text" class="feedback2" name="feedback_2" placeholder="Enter your feedback here!">
                 <div class="feedback-buttons">
-                  <button type="submit" formaction="save_route(1).php" class="add-feedback2" id="add-feedback">Add Feedback</button>
+                  <button type="submit" formaction="feedback(1).php" class="add-feedback2" id="add-feedback">Add Feedback</button>
                   <button class="delete-btn2" id="delete-feedback">Delete</button>
                 </div>
               <!-- Submit button -->
@@ -188,11 +188,11 @@ if (!isset($_SESSION["user_id"])) {
                     <div class="feedback-section" style="height: 50px">
                       <input type="text" class="feedback3" name="feedback_3" placeholder="Enter your feedback here!">
                       <div class="feedback-buttons">
-                        <button type="submit" formaction="save_route(2).php" class="add-feedback3" id="add-feedback">Add Feedback</button>
+                        <button type="submit" formaction="feedback(2).php" class="add-feedback3" id="add-feedback">Add Feedback</button>
                         <button class="delete-btn3" id="delete-feedback">Delete</button>
                     <!-- Submit button -->
                     <div class="button-container3">
-                      <button type="submit" class="submit_btn3">Save Route</button>
+                      <button type="submit" formaction="save_route(2).php" class="submit_btn3">Save Route</button>
                     </div>
                       </div>
                       <div>

@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 include_once 'database.php';
@@ -8,51 +7,36 @@ include_once 'database.php';
 $user = $_SESSION['user_id'];
 
 // Retrieve user inputs from $_POST
-$origin = $_POST["origin_3"];
-$destination = $_POST["destination_3"];
-$feedback = $_POST["feedback_3"];
+$origin = $_POST["origin_1"];
+$destination = $_POST["destination_1"];
+$save_index = $user . "_3"; // Concatenate user ID with the desired constant value
 
-if (empty($origin) || empty($destination) || empty($feedback)) {
-    // Handle the case when any input is blank
-    echo "Please fill in all fields.";
+// Check if the save_index is already occupied for the user
+$existingQuery = "SELECT COUNT(*) FROM save_route WHERE save_index = ? AND id = ?";
+$stmtExisting = $mysqli->prepare($existingQuery);
+$stmtExisting->bind_param("si", $save_index, $user);
+$stmtExisting->execute();
+$stmtExisting->bind_result($count);
+$stmtExisting->fetch();
+$stmtExisting->close(); // Close the result set
+
+if ($count > 0) {
+    // Handle the case when the save_index is already occupied for the user
+    echo "Save index is already occupied for the user.";
 
     header("refresh:5; url=index.php");
     exit;
-
 } else {
+    // Prepare and execute the query with prepared statements
+    $query = "INSERT INTO save_route (id, origin, destination, save_index)
+              VALUES (?, ?, ?, ?)";
 
-// Prepare and execute the query with prepared statements
-$query = "INSERT INTO feedbacks (id, origin, destination, feedback)
-          VALUES (?, ?, ?, ?)";
+    $stmt = $mysqli->prepare($query);
+    $stmt->bind_param("isss", $user, $origin, $destination, $save_index);
+    $stmt->execute();
+    $stmt->close(); // Close the statement
 
-$stmt = $mysqli->prepare($query);
-$stmt->bind_param("isss", $user, $origin, $destination, $feedback);
-$stmt->execute();
-
-header("Location: index.php?feedback=success");
-exit;
+    header("Location: index.php?save_route=success");
+    exit;
 }
-
-/*if(isset($_POST['submit']))
-{
-
-    $origin=$_POST["address-one"];
-    $destination=$_POST["address-two"];
-    $feedback=$_POST["feedback_input"];
-
-}
-
-$sql = "INSERT INTO 'feedbacks' ('origin', 'destination', 'feedback')
-		VALUES ('$origin', '$destination', '$feedback')";
-$insert = mysqli_query($conn, $sql);
-if(!$insert)
-{
-
-    echo "there are some problem while inserting data";
-
-} else
-{
-
-    echo "Data successfully inserted.";
-
-}*/
+?>

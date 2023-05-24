@@ -36,7 +36,7 @@ if ($conn -> connect_error)
 
 }
 
-$sql = "SELECT feedback_id, date_today, origin, destination, feedback from feedbacks";
+$sql = "SELECT feedback_id, date_today, origin, destination, feedback from feedbacks ORDER BY date_today DESC;";
 $result = $conn-> query($sql);
 if($result-> num_rows > 0)
 {

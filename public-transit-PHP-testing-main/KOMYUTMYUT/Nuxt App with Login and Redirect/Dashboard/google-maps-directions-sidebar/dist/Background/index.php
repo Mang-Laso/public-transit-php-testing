@@ -29,7 +29,18 @@ session_start();
 		// Leaflet has native support for raster maps, So you can create a map with a few commands only!
 
 // The Leaflet map Object
-const map = L.map('map').setView([14.658642,120.985043], 12);
+let mapOptions = {
+      zoom: 12,
+      minZoom: 6,
+      maxZoom: 18,
+  }
+
+var southWest = L.latLng(5.996826, 118.400825),
+  northEast = L.latLng(20.497456, 126.073096),
+  bounds = L.latLngBounds(southWest, northEast);
+
+var map = L.map('map')
+            .setView([14.658642,120.985043], 12);
 
 // Get your own API Key on https://myprojects.geoapify.com
 const myAPIKey = "72ba55a8fd634344b11cb5424941a28b";
@@ -37,15 +48,16 @@ const myAPIKey = "72ba55a8fd634344b11cb5424941a28b";
 // Retina displays require different mat tiles quality
 const isRetina = L.Browser.retina;
 
-const baseUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}.png?apiKey={apiKey}";
-const retinaUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}@2x.png?apiKey={apiKey}";
-
+const baseUrl = "https://maps.geoapify.com/v1/tile/osm-carto/{z}/{x}/{y}.png?apiKey={apiKey}";
+const retinaUrl = "https://maps.geoapify.com/v1/tile/osm-carto/{z}/{x}/{y}.png?apiKey=YOUR_API_KEY{apiKey}";
 // Add map tiles layer. Set 20 as the maximal zoom and provide map data attribution.
 L.tileLayer(isRetina ? retinaUrl : baseUrl, {
   attribution: 'Powered by <a href="https://www.geoapify.com/" target="_blank">Geoapify</a> | <a href="https://openmaptiles.org/" rel="nofollow" target="_blank">© OpenMapTiles</a> <a href="https://www.openstreetmap.org/copyright" rel="nofollow" target="_blank">© OpenStreetMap</a> contributors',
   apiKey: myAPIKey,
-  maxZoom: 20,
-  id: 'osm-bright',
+  minZoom: 6,
+  maxZoom: 18,
+  setMaxBounds: bounds,
+  id: 'osm-carto',
 }).addTo(map);
 
 var start_location = localStorage.getItem('addressOneValueTransfer');
